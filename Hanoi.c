@@ -131,3 +131,63 @@ void hanoiRegras(){
         }
     }while(opcao != 's');
 }
+void resolverHanoi(Pilha *torres[], int numDiscos){
+    criarTorres(torres, numDiscos);
+    imprimirTorres(torres, numDiscos);
+    autoHanoi(numDiscos, torres[0], torres[2], torres[1], torres, numDiscos);
+    printf("----------------------------------------------------------------\n\n");
+    printf("Resolucao automatica completa.\n");
+    printf("Torre de Hanoi com %d discos resolvida.\n", numDiscos);
+    printf("----------------------------------------------------------------\n\n");
+
+    char opcao;
+    do{
+        printf("\n-> Deseja voltar ao menu (s/n): ");
+        scanf(" %c", &opcao);
+
+        if(opcao == 'n'){
+            exit(0);
+        }else if(opcao != 's'&& opcao != 'n'){
+            printf("\033[F\033[K");
+            printf("Opcao incorreta. Tente novamente.");
+        }
+    }while(opcao != 's');
+}
+
+void iniciarJogo(Pilha *torres[], int numDiscos){
+    criarTorres(torres, numDiscos);
+    imprimirTorres(torres, numDiscos);
+    int movimentos = 0;
+
+    while(torres[2]->topo != numDiscos - 1){
+        int torreOrigem, torreDestino;
+        printf(">> Escolha a torre de origem (1, 2, 3) ou 0 para reiniciar: ");
+        scanf("%d", &torreOrigem);
+        if(torreOrigem == 0){
+            return;
+        }
+        while(torreOrigem < 1 || torreOrigem > 3 || torres[torreOrigem-1]->topo == -1){
+            printf(">> Escolha uma torre valida e nao vazia: {1, 2, 3} ou 0 para reiniciar: ");
+            scanf("%d", &torreOrigem);
+            if(torreOrigem == 0){
+                return;
+            }
+        }
+
+        printf(">> Escolha a torre de destino (1, 2, 3) ou 0 para reiniciar: ");
+        scanf("%d", &torreDestino);
+        if(torreDestino == 0){
+            return;
+        }
+        while(torreDestino < 1 || torreDestino > 3 || (topo(torres[torreDestino-1]) != -1 && topo(torres[torreDestino-1]) < topo(torres[torreOrigem-1]))){
+            printf(">> Escolha uma torre valida: {1, 2, 3} ou 0 para reiniciar: ");
+            scanf("%d", &torreDestino);
+            if(torreDestino == 0){
+                return;
+            }
+        }
+
+        moverDisco(torres[torreOrigem-1], torres[torreDestino-1]);
+        movimentos++;
+        imprimirTorres(torres, numDiscos);
+    }
