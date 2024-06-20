@@ -191,3 +191,58 @@ void iniciarJogo(Pilha *torres[], int numDiscos){
         movimentos++;
         imprimirTorres(torres, numDiscos);
     }
+
+printf("PARABENS\n");
+    printf("Torre de Hanoi com %d discos completadas em %d movimentos.\n", numDiscos, movimentos);
+    printf("----------------------------------------------------------------\n\n");
+
+    char opcao;
+    do{
+        printf("\n-> Deseja voltar ao menu (s/n): ");
+        scanf(" %c", &opcao);
+
+        if(opcao == 'n'){
+            exit(0);
+        }else if(opcao != 's'&& opcao != 'n'){
+            printf("\033[F\033[K");
+            printf("Opcao incorreta. Tente novamente.");
+        }
+    }while(opcao != 's');
+}
+
+
+
+void limparTela() {
+    system("cls"); 
+}
+
+void menu() {
+    int numDiscos = 0;
+    Pilha *torres[3];
+
+    while(1){
+        limparTela();
+        int menuOpcao;
+        printf("-------- TORRES DE HANOI -------\n\n");
+        printf("1 - Jogar Manualmente\n2 - Resolver Automaticamente\n3 - Ver Regras do Jogo\n4 - Sair\n\n");
+        printf("Digite a opcao desejada: ");
+        scanf("%d", &menuOpcao);
+
+        switch(menuOpcao){
+            case 1:
+                if(numDiscos == 0){
+                    printf("-------------------------------------------\n\n");
+                    printf(">> Digite a quantidade de discos (1-13): ");
+                    scanf("%d", &numDiscos);
+                    while(numDiscos <= 0 || numDiscos > 13){
+                        printf("\033[F\033[K");
+                        printf(">> ALERTA: Limite de discos = 13\n");
+                        printf(">> Digite a quantidade de discos (1-13): ");
+                        scanf("%d", &numDiscos);
+                    }
+                    for(int i = 0; i < 3; i++){
+                        torres[i] = criarPilha(numDiscos);
+                    }
+                }
+                iniciarJogo(torres, numDiscos);
+                break;
