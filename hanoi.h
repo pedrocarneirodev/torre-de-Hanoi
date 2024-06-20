@@ -16,5 +16,6 @@ void hanoiRegras();
 void resolverHanoi(Pilha *torres[], int numDiscos);
 void iniciarJogo(Pilha *torres[], int numDiscos);
 void menu();
+void limparTela();
 
 #endif
