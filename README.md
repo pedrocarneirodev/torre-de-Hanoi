@@ -44,7 +44,7 @@ cd torre-de-Hanoi/
 
 Compile:
 ```
-gcc main.c -o output.exe
+gcc Hanoi.c -o output.exe
 ```
 
 E depois, execute:
