@@ -246,3 +246,41 @@ void menu() {
                 }
                 iniciarJogo(torres, numDiscos);
                 break;
+            case 2:
+                if(numDiscos == 0){
+                    printf("-----------------------------------------\n\n");
+                    printf(">> Digite a quantidade de discos (1-13): ");
+                    scanf("%d", &numDiscos);
+                    while(numDiscos <= 0 || numDiscos > 13){
+                        printf("\033[F\033[K");
+                        printf(">> ALERTA: Limite de discos = 13\n");
+                        printf(">> Digite a quantidade de discos (1-13): ");
+                        scanf("%d", &numDiscos);
+                    }
+                    for(int i = 0; i < 3; i++){
+                        torres[i] = criarPilha(numDiscos);
+                    }
+                }
+                resolverHanoi(torres, numDiscos);
+                break;
+            case 3:
+                hanoiRegras();
+                break;
+            case 4:
+                exit(0);
+                break;
+        }
+
+        if(menuOpcao == 1 || menuOpcao == 2){
+            for(int i = 0; i < 3; i++){
+                liberarPilha(torres[i]);
+            }
+            numDiscos = 0;
+        }
+    }
+}
+
+int main() {
+    menu();
+    return 0;
+}
