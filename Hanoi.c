@@ -61,23 +61,80 @@ void criarTorres(Pilha *torres[], int numDiscos){
     }
 }
 void imprimirTorres(Pilha *torres[], int numDiscos){
+    system("cls");
     printf("\n\n");
+
+    int larguraBase = 2 * numDiscos + 4;
+    int alturaBase = 13 - numDiscos;
+    int numTorre = 0;
+    
+    for(int i = 0; i < alturaBase * 3; i++){
+        numTorre++;
+        int numEspacos = numDiscos + 1;
+        for (int j = 0; j < numEspacos; j++) {
+            printf(" ");
+        }
+        printf("|");
+        for (int j = 0; j < numEspacos; j++) {
+            printf(" ");
+        }
+        printf("      ");
+        if(numTorre == 3){
+            numTorre = 0;
+            printf("\n");
+        }
+    }
     for(int i = numDiscos - 1; i >= 0; i--){
         for(int j = 0; j < 3; j++){
             if(i <= torres[j]->topo){
-                if(torres[j]->discos[i] < 10){
-                    printf("| %.2d |   ", torres[j]->discos[i]);
-                }else{
-                    printf("| %.2d |   ", torres[j]->discos[i]);
+                int disco = torres[j]->discos[i];
+                int numEspacos = numDiscos - disco;
+                for(int j = 0; j < numEspacos; j++){
+                    printf(" ");
+                }
+                printf("[");
+                for(int j = 0; j < disco; j++){
+                    printf("#");
+                }
+                printf("|");
+                for(int j = 0; j < disco; j++){
+                    printf("#");
+                }
+                printf("]");
+                for(int j = 0; j < numEspacos; j++){
+                    printf(" ");
                 }
             }else{
-                printf("|    |   ");
+                for(int j = 0; j < numDiscos + 1; j++){
+                    printf(" ");
+                }
+                printf("|");
+                for(int j = 0; j < numDiscos + 1; j++){
+                    printf(" ");
+                }
             }
+            printf("      ");
         }
         printf("\n");
     }
-    printf("------- -------- --------\n");
-    printf("  T1      T2      T3\n\n");
+    
+    for(int i = 0; i < 3; i++){
+        printf("=");
+        for(int j = 0; j < larguraBase; j++){
+            printf("=");
+        }
+        printf("   ");
+    }
+    printf("\n");
+    printf("     T1");
+    for(int i = 0; i < numDiscos - 2; i++){
+        printf(" ");
+    }
+    printf("T2");
+    for(int i = 0; i < numDiscos - 2; i++){
+        printf(" ");
+    }
+    printf("T3\n\n");
 }
 
 void moverDisco(Pilha *origem, Pilha *destino){
